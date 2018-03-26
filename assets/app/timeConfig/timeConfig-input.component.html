@@ -1,0 +1,26 @@
+<div class="col-md-8 col-md-offset-2">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="time">Time</label>
+            <input
+                    type="text"
+                    id="time"
+                    class="form-control"
+                    name="time"
+                    formControlName="time">
+        </div>
+        <div class="form-group">
+            <label for="temperature">Temperature (0-9)</label>
+            <input
+                    type="number"
+                    min="0"
+                    max="9"
+                    id="temperature"
+                    class="form-control"
+                    name="temperature"
+                    formControlName="temperature">
+        </div>
+        <button class="btn btn-danger" type="button" (click)="onClear()">Clear</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid"> Save</button>
+    </form>
+</div>
