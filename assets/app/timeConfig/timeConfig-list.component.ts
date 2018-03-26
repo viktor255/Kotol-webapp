@@ -22,11 +22,7 @@ export class TimeConfigListComponent implements OnInit{
         this.timeConfigService.getTimeConfigs()
             .subscribe((timeConfigs: TimeConfig[]) => {
                 this.timeConfigs = timeConfigs;
-                this.timeConfigs.sort((a,b) => {
-                    if(a.time <= b.time)
-                        return -1;
-                    else return 1;
-                });
+                this.timeConfigService.sortTimeConfigs();
                 console.log(this.timeConfigs);
             });
         // this.timeConfigs = this.timeConfigService.getTimeConfigs();

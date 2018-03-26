@@ -14,17 +14,21 @@ export class TimeConfigService{
     //     return
     // }
 
+    sortTimeConfigs(){
+        this.timeConfigs.sort((a,b) => {
+            if(a.time <= b.time)
+                return -1;
+            else return 1;
+        });
+    }
+
     addTimeConfig(timeConfig: TimeConfig): Observable<TimeConfig> {
         // if not already in array add new timeConfig else change temperature
         const indexNum = this.timeConfigs.findIndex(x => x.time == timeConfig.time);
         if(indexNum == -1){
             // create
             this.timeConfigs.push(timeConfig);
-            this.timeConfigs.sort((a,b) => {
-                if(a.time <= b.time)
-                    return -1;
-                else return 1;
-            });
+            this.sortTimeConfigs();
             return this.httpClient.post<TimeConfig>('http://localhost:3000/timeConfig', timeConfig);
         } else {
             // update
