@@ -10,7 +10,8 @@ var appRoutes = require('./routes/app');
 var timeConfigsRoutes = require('./routes/timeConfigs');
 
 var app = express();
-mongoose.connect('mongodb://localhost:27017/kotol');
+// mongoose.connect('mongodb://localhost:27017/kotol');
+mongoose.connect('mongodb://viktor:viktor-bojler@boilertimeconfigs-shard-00-00-ssig8.mongodb.net:27017,boilertimeconfigs-shard-00-01-ssig8.mongodb.net:27017,boilertimeconfigs-shard-00-02-ssig8.mongodb.net:27017/kotol?ssl=true&replicaSet=boilerTimeConfigs-shard-0&authSource=admin');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
