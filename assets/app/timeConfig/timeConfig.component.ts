@@ -37,4 +37,8 @@ export class TimeConfigComponent {
             );
     }
 
+    isLoggedIn() {
+        return localStorage.getItem('token') != null;
+    }
+
 }

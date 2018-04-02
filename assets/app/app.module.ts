@@ -8,6 +8,13 @@ import { TimeConfigListComponent } from "./timeConfig/timeConfig-list.component"
 import { TimeConfigInputComponent } from "./timeConfig/timeConfig-input.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { AuthService } from "./auth/auth.service";
+import { AuthenticationComponent } from "./auth/authentication.component";
+import { LogoutComponent } from "./auth/logout.component";
+import { SigninComponent } from "./auth/signin.component";
+import { SignupComponent } from "./auth/signup.component";
+import { routing } from "./app.routing";
+import { HeaderComponent } from "./header.component";
 
 @NgModule({
     declarations: [
@@ -15,13 +22,23 @@ import { HttpClientModule } from "@angular/common/http";
         TimeConfigComponent,
         TimeConfigsComponent,
         TimeConfigListComponent,
-        TimeConfigInputComponent
+        TimeConfigInputComponent,
+        TimeConfigsComponent,
+        AuthenticationComponent,
+        LogoutComponent,
+        SignupComponent,
+        SigninComponent,
+        HeaderComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        routing
+    ],
+    providers:[
+        AuthService
     ],
     bootstrap: [AppComponent]
 })

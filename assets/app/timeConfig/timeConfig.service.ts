@@ -27,9 +27,15 @@ export class TimeConfigService{
         const indexNum = this.timeConfigs.findIndex(x => x.time == timeConfig.time);
         if(indexNum == -1){
             // create
+            const token = localStorage.getItem('token')
+                ? '?token=' + localStorage.getItem('token')
+                : '';
             this.timeConfigs.push(timeConfig);
             this.sortTimeConfigs();
-            return this.httpClient.post<TimeConfig>('http://localhost:3000/timeConfig', timeConfig);
+            return this.httpClient.post<TimeConfig>('http://localhost:3000/timeConfig' + token, timeConfig)
+                .catch((error: HttpErrorResponse) => {
+                    return Observable.throw(error);
+                });
         } else {
             // update
             // this.timeConfigs[indexNum].temperature = timeConfig.temperature;
@@ -45,8 +51,14 @@ export class TimeConfigService{
     }
 
     deleteTimeConfig(timeConfig: TimeConfig): Observable<TimeConfig> {
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
         this.timeConfigs.splice(this.timeConfigs.indexOf(timeConfig),1);
-        return this.httpClient.delete<TimeConfig>('http://localhost:3000/timeConfig/' + timeConfig.timeConfigId);
+        return this.httpClient.delete<TimeConfig>('http://localhost:3000/timeConfig/' + timeConfig.timeConfigId + token)
+            .catch((error: HttpErrorResponse) => {
+                return Observable.throw(error);
+            });
     }
 
     getTimeConfigs() {

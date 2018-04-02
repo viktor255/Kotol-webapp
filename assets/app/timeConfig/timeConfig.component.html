@@ -6,7 +6,7 @@
         <div class="author">
             {{ timeConfig.temperature }}
         </div>
-        <div class="config">
+        <div class="config" *ngIf="isLoggedIn()">
             <a (click)="onEdit()">Edit</a>
             <a (click)="onDelete()">Delete</a>
         </div>

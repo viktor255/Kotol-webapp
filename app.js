@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 var appRoutes = require('./routes/app');
 var timeConfigsRoutes = require('./routes/timeConfigs');
+var userRoutes = require('./routes/user');
 
 var app = express();
 // mongoose.connect('mongodb://localhost:27017/kotol');
@@ -33,6 +34,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/timeConfig', timeConfigsRoutes);
+app.use('/user', userRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
