@@ -5,25 +5,6 @@ var jwt = require('jsonwebtoken');
 
 var User = require('../models/user');
 
-router.post('/', function (req, res, next) {
-    var user = new User({
-        password: bcrypt.hashSync(req.body.password, 10),
-        email: req.body.email
-    });
-    user.save(function(err, result) {
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: err
-            });
-        }
-        res.status(201).json({
-            message: 'User created',
-            obj: result
-        });
-    });
-});
-
 router.post('/signin', function (req, res, next) {
     User.findOne({email: req.body.email}, function (err, user) {
         if (err) {
@@ -53,6 +34,37 @@ router.post('/signin', function (req, res, next) {
             message: 'Successfully logged in',
             token: token,
             userId: user._id
+        });
+    });
+});
+
+router.use('/', function (req, res, next) {
+    jwt.verify(req.query.token, 'secret', function (err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not Authenticated',
+                error: err
+            });
+        }
+        next();
+    })
+});
+
+router.post('/signup', function (req, res, next) {
+    var user = new User({
+        password: bcrypt.hashSync(req.body.password, 10),
+        email: req.body.email
+    });
+    user.save(function(err, result) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        res.status(201).json({
+            message: 'User created',
+            obj: result
         });
     });
 });

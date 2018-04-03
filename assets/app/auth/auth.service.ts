@@ -10,7 +10,10 @@ export class AuthService {
     }
 
     signup(user: User): Observable<User> {
-        return this.httpClient.post<User>('http://localhost:3000/user', user)
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
+        return this.httpClient.post<User>('http://localhost:3000/user/signup' + token, user)
             .catch((error: HttpErrorResponse) => {
                 return Observable.throw(error);
             });

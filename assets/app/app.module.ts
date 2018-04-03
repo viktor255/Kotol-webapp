@@ -9,7 +9,6 @@ import { TimeConfigInputComponent } from "./timeConfig/timeConfig-input.componen
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AuthService } from "./auth/auth.service";
-import { AuthenticationComponent } from "./auth/authentication.component";
 import { LogoutComponent } from "./auth/logout.component";
 import { SigninComponent } from "./auth/signin.component";
 import { SignupComponent } from "./auth/signup.component";
@@ -24,7 +23,6 @@ import { HeaderComponent } from "./header.component";
         TimeConfigListComponent,
         TimeConfigInputComponent,
         TimeConfigsComponent,
-        AuthenticationComponent,
         LogoutComponent,
         SignupComponent,
         SigninComponent,
