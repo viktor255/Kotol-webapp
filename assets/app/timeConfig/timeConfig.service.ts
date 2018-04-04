@@ -3,12 +3,13 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
+import { ErrorService } from "../errors/error.service";
 
 @Injectable()
 export class TimeConfigService{
     timeConfigs: TimeConfig[] = [];
 
-    constructor(private httpClient: HttpClient){}
+    constructor(private httpClient: HttpClient, private errorService: ErrorService){}
 
     // checkTime(time:string){
     //     return
@@ -34,6 +35,7 @@ export class TimeConfigService{
             this.sortTimeConfigs();
             return this.httpClient.post<TimeConfig>('http://localhost:3000/timeConfig' + token, timeConfig)
                 .catch((error: HttpErrorResponse) => {
+                    this.errorService.handleError(error.error);
                     return Observable.throw(error);
                 });
         } else {
@@ -57,6 +59,7 @@ export class TimeConfigService{
         this.timeConfigs.splice(this.timeConfigs.indexOf(timeConfig),1);
         return this.httpClient.delete<TimeConfig>('http://localhost:3000/timeConfig/' + timeConfig.timeConfigId + token)
             .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
                 return Observable.throw(error);
             });
     }

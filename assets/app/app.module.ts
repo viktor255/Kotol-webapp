@@ -14,6 +14,8 @@ import { SigninComponent } from "./auth/signin.component";
 import { SignupComponent } from "./auth/signup.component";
 import { routing } from "./app.routing";
 import { HeaderComponent } from "./header.component";
+import { ErrorComponent } from "./errors/error.component";
+import { ErrorService } from "./errors/error.service";
 
 @NgModule({
     declarations: [
@@ -26,7 +28,8 @@ import { HeaderComponent } from "./header.component";
         LogoutComponent,
         SignupComponent,
         SigninComponent,
-        HeaderComponent
+        HeaderComponent,
+        ErrorComponent
     ],
     imports: [
         BrowserModule,
@@ -36,7 +39,8 @@ import { HeaderComponent } from "./header.component";
         routing
     ],
     providers:[
-        AuthService
+        AuthService,
+        ErrorService
     ],
     bootstrap: [AppComponent]
 })

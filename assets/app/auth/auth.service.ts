@@ -3,10 +3,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 // import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
+import { ErrorService } from "../errors/error.service";
 
 @Injectable()
 export class AuthService {
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private errorService: ErrorService) {
     }
 
     signup(user: User): Observable<User> {
@@ -15,6 +16,7 @@ export class AuthService {
             : '';
         return this.httpClient.post<User>('http://localhost:3000/user/signup' + token, user)
             .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
                 return Observable.throw(error);
             });
     }
@@ -22,6 +24,7 @@ export class AuthService {
     signin(user: User): Observable<User> {
         return this.httpClient.post<User>('http://localhost:3000/user/signin', user)
             .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
                 return Observable.throw(error);
             });
     }
