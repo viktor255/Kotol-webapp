@@ -1,11 +1,12 @@
 <div class="col-md-8 col-md-offset-2">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="time">Time</label>
+            <label for="time">Time (e.g. 17:34)</label>
             <input
                     type="text"
                     id="time"
                     class="form-control"
+                    [ngModel]="timeConfig?.time"
                     name="time"
                     formControlName="time">
         </div>
@@ -17,9 +18,11 @@
                     max="9"
                     id="temperature"
                     class="form-control"
+                    [ngModel]="timeConfig?.temperature"
                     name="temperature"
                     formControlName="temperature">
         </div>
+        <div id="error-msg">Given time already exists</div>
         <button class="btn btn-danger" type="button" (click)="onClear()">Clear</button>
         <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid"> Save</button>
     </form>

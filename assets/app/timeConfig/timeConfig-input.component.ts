@@ -5,43 +5,64 @@ import { TimeConfigService } from "./timeConfig.service";
 
 @Component({
     selector: 'app-timeConfig-input',
-    templateUrl: './timeConfig-input.component.html'
+    templateUrl: './timeConfig-input.component.html',
+    styles: [`#error-msg {
+        padding-bottom: 10px;
+        color: red;
+        display: none;
+    }`]
 })
-export class TimeConfigInputComponent implements OnInit{
+export class TimeConfigInputComponent implements OnInit {
     timeConfig: TimeConfig;
     myForm: FormGroup;
 
-    constructor(private timeConfigService: TimeConfigService) {}
+    constructor(private timeConfigService: TimeConfigService) {
+    }
 
-    onClear(){
+    onClear() {
         this.timeConfig = null;
+        this.toggleErrorMessage(false);
         this.myForm.reset();
         // form.resetForm();
     }
 
+    toggleErrorMessage(showError) {
+        if (showError)
+            document.getElementById('error-msg').style.display = 'block';
+        else
+            document.getElementById('error-msg').style.display = 'none';
+
+
+    }
+
     onSubmit() {
-        /*if(this.timeConfig && this.timeConfig.time == this.myForm.value.time) {
-            // edit
-            console.log(this.timeConfig);
+        if(this.timeConfig) {
+            // Update
+            this.timeConfig.time = this.myForm.value.time;
             this.timeConfig.temperature = this.myForm.value.temperature;
-            console.log(this.timeConfig);
-            this.timeConfigService.updateTimeConfig(this.timeConfig);
+            this.timeConfigService.updateTimeConfig(this.timeConfig)
+                .subscribe(
+                    result => console.log(result)
+                );
             this.timeConfig = null;
-        } else {
-            // create
+        }
+        else {
+            // Create
             this.timeConfig = new TimeConfig(this.myForm.value.time, this.myForm.value.temperature);
             console.log(this.timeConfig);
-            this.timeConfigService.addTimeConfig(this.timeConfig);
-            // this.timeConfig = null;
-        }*/
-        this.timeConfig = new TimeConfig(this.myForm.value.time, this.myForm.value.temperature);
-        console.log(this.timeConfig);
 
-        this.timeConfigService.addTimeConfig(this.timeConfig)
-            .subscribe(
-              data => console.log(data),
-              error => console.error(error),
-            );
+            this.timeConfigService.addTimeConfig(this.timeConfig)
+                .subscribe(
+                    data => {
+                        console.log(data);
+                        this.toggleErrorMessage(false);
+                    },
+                    error => {
+                        console.error(error);
+                        this.toggleErrorMessage(true);
+                    },
+                );
+        }
         this.myForm.reset();
 
     }
@@ -56,9 +77,12 @@ export class TimeConfigInputComponent implements OnInit{
             temperature: new FormControl(null, [
                 Validators.required,
                 Validators.pattern("[0-9]$")
-                ])
+            ])
 
         });
+        this.timeConfigService.timeConfigIsEdit.subscribe(
+            (timeConfig: TimeConfig) => this.timeConfig = timeConfig
+        );
     }
 
 }

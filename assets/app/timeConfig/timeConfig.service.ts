@@ -1,13 +1,16 @@
 import { TimeConfig } from "./timeConfig.model";
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
 import { ErrorService } from "../errors/error.service";
+import { Error } from "../errors/error.model";
 
 @Injectable()
 export class TimeConfigService{
     timeConfigs: TimeConfig[] = [];
+
+    timeConfigIsEdit = new EventEmitter<TimeConfig>();
 
     constructor(private httpClient: HttpClient, private errorService: ErrorService){}
 
@@ -31,25 +34,39 @@ export class TimeConfigService{
             const token = localStorage.getItem('token')
                 ? '?token=' + localStorage.getItem('token')
                 : '';
-            this.timeConfigs.push(timeConfig);
-            this.sortTimeConfigs();
+            // this.timeConfigs.push(timeConfig);
+            // this.sortTimeConfigs();
             return this.httpClient.post<TimeConfig>('http://localhost:3000/timeConfig' + token, timeConfig)
+                .map((data: any) => {
+                    const myTimeConfig = new TimeConfig(data.obj.time, data.obj.temperature, data.obj._id);
+                    this.timeConfigs.push(myTimeConfig);
+                    this.sortTimeConfigs();
+                    return myTimeConfig;
+                })
                 .catch((error: HttpErrorResponse) => {
                     this.errorService.handleError(error.error);
                     return Observable.throw(error);
                 });
         } else {
             // update
-            // this.timeConfigs[indexNum].temperature = timeConfig.temperature;
+            const error = new Error('Time', 'Given time is already used');
+            return Observable.throw(error);
         }
     }
 
     editConfig(timeConfig: TimeConfig){
-
+        this.timeConfigIsEdit.emit(timeConfig);
     }
 
-    updateTimeConfig(timeConfig: TimeConfig){
-
+    updateTimeConfig(timeConfig: TimeConfig): Observable<TimeConfig>{
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
+        return this.httpClient.patch<TimeConfig>('http://localhost:3000/timeConfig/' + timeConfig.timeConfigId + token, timeConfig)
+            .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
+                return Observable.throw(error);
+            });
     }
 
     deleteTimeConfig(timeConfig: TimeConfig): Observable<TimeConfig> {

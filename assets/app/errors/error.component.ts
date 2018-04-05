@@ -25,6 +25,11 @@ export class ErrorComponent implements OnInit {
 
     onErrorHandled() {
         this.display = 'none';
+        if(this.error.title === 'Not Authenticated'){
+            localStorage.clear();
+            location.reload();
+        }
+
     }
 
     ngOnInit() {

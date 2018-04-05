@@ -27,7 +27,7 @@ export class TimeConfigComponent {
     constructor(private timeConfigService: TimeConfigService){}
 
     onEdit() {
-        // this.timeConfigService.editConfig(this.timeConfig);
+        this.timeConfigService.editConfig(this.timeConfig);
     }
 
     onDelete() {
