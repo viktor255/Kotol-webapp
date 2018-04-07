@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TimeConfigService } from "./timeConfig/timeConfig.service";
+import { TimeConfig } from "./timeConfig/timeConfig.model";
 
 @Component({
     selector: 'my-app',
@@ -7,9 +8,5 @@ import { TimeConfigService } from "./timeConfig/timeConfig.service";
     styleUrls: ['./app.component.css'],
     providers: [TimeConfigService]
 })
-export class AppComponent {
-
-
-
-
+export class AppComponent{
 }

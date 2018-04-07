@@ -96,6 +96,21 @@ export class TimeConfigService{
                 //console.log(transformedMessages);
                 this.timeConfigs = transformedTimeConfigs;
                 return transformedTimeConfigs;
+            })
+            .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
+                return Observable.throw(error);
+            });
+    }
+
+    getCurrentTimeConfig(): Observable<TimeConfig> {
+        return this.httpClient.get<TimeConfig>('http://localhost:3000/currentTimeConfig')
+            .map((data: any) => {
+                return new TimeConfig(data.obj.time, data.obj.temperature);
+            })
+            .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
+                return Observable.throw(error);
             });
     }
 }

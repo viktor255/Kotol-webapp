@@ -16,6 +16,7 @@ import { routing } from "./app.routing";
 import { HeaderComponent } from "./header.component";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
+import { TimeConfigCurrentComponent } from "./timeConfig/timeConfig-current.component";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { ErrorService } from "./errors/error.service";
         TimeConfigListComponent,
         TimeConfigInputComponent,
         TimeConfigsComponent,
+        TimeConfigCurrentComponent,
         LogoutComponent,
         SignupComponent,
         SigninComponent,

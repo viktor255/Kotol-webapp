@@ -2,9 +2,12 @@ import { Component } from "@angular/core";
 
 @Component({
     selector: 'app-timeConfigs',
-    template: `
+    template: `        
         <div class="row" *ngIf="isLoggedIn()">
             <app-timeConfig-input></app-timeConfig-input>
+        </div>
+        <div class="row">
+            <app-timeConfig-current></app-timeConfig-current>
         </div>
         <hr>
         <div class="row">

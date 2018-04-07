@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 var appRoutes = require('./routes/app');
 var timeConfigsRoutes = require('./routes/timeConfigs');
+var currentTimeConfigRoutes = require('./routes/currentTimeConfig');
 var userRoutes = require('./routes/user');
 
 var app = express();
@@ -34,6 +35,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/timeConfig', timeConfigsRoutes);
+app.use('/currentTimeConfig', currentTimeConfigRoutes);
 app.use('/user', userRoutes);
 app.use('/', appRoutes);
 
