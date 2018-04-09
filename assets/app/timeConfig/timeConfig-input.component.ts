@@ -72,8 +72,7 @@ export class TimeConfigInputComponent implements OnInit {
         this.myForm = new FormGroup({
             time: new FormControl(null, [
                 Validators.required,
-                // Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")
-                Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
+                Validators.pattern("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")
             ]),
             temperature: new FormControl(null, [
                 Validators.required,
