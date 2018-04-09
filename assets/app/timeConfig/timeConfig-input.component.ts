@@ -63,8 +63,8 @@ export class TimeConfigInputComponent implements OnInit {
                     },
                 );
         }
-        this.onClear();
-        // this.myForm.reset();
+        this.timeConfig = null;
+        this.myForm.reset();
 
     }
 
