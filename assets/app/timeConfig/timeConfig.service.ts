@@ -26,6 +26,42 @@ export class TimeConfigService{
         });
     }
 
+    currentTime(){
+        const date = new Date();
+        let hours = date.getHours().toString();
+        if(Number(hours) <= 9) {
+            hours = '0' + hours;
+        }
+        let minutes = date.getMinutes().toString();
+        if(Number(minutes) <= 9) {
+            minutes = '0' + minutes;
+        }
+        return hours + ':' + minutes;
+    }
+
+    desiredTemperature(){
+        const length = this.timeConfigs.length;
+        if(length == 0)
+            return -1;
+        let counter = 0;
+        for(const timeConfig of this.timeConfigs){
+            // console.log('timeconfig is ');
+            // console.log(timeConfig);
+            // console.log(this.currentTime());
+            // console.log(timeConfig.time);
+            if(this.currentTime() < timeConfig.time) {
+                // console.log('counter is ' + counter);
+                break;
+            }
+            counter++;
+
+        }
+        if(counter == 0)
+            return this.timeConfigs[length-1].temperature;
+        return this.timeConfigs[counter-1].temperature;
+
+    }
+
     addTimeConfig(timeConfig: TimeConfig): Observable<TimeConfig> {
         // if not already in array add new timeConfig else change temperature
         const indexNum = this.timeConfigs.findIndex(x => x.time == timeConfig.time);
