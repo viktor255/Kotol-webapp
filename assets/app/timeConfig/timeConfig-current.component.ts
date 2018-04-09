@@ -55,7 +55,7 @@ export class TimeConfigCurrentComponent implements OnInit, OnDestroy {
         // this.checkCurrentTemp();
         this.intervalId = setInterval(() => {
             this.checkCurrentTemp()
-        }, 10000);
+        }, 30000);
     }
 
     ngOnDestroy(){
