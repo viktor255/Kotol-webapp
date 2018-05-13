@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 @Component ({
     selector: 'app-logout',
     template: `
-        <div class="col-md-8 com-md-offset-2 " *ngIf="isLoggedIn()">
+        <div class="col-md-8 col-md-offset-2">
             <button class="btn btn-danger" (click)="onLogout()" >Logout</button>
         </div>
     `

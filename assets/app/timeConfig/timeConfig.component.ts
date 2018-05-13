@@ -6,18 +6,19 @@ import { TimeConfigService } from "./timeConfig.service";
     selector: 'app-timeConfig',
     templateUrl: './timeConfig.component.html',
     styles: [`
-        .author {
+        .temperature {
             display: inline-block;
             font-style: italic;
             font-size: 12px;
-            width: 80%;
+            /*width: 80%;*/
         }
 
         .config {
             display: inline-block;
-            text-align: right;
+            /*text-align: right;*/
+            float: right;
             font-size: 12px;
-            width: 19%;
+            /* width: 19%;*/
         }
     `]
 })
@@ -28,6 +29,7 @@ export class TimeConfigComponent {
 
     onEdit() {
         this.timeConfigService.editConfig(this.timeConfig);
+        window.scrollTo(0,0);
     }
 
     onDelete() {

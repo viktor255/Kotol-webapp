@@ -3,11 +3,11 @@
         {{ timeConfig.time }}
     </div>
     <footer class="panel-footer">
-        <div class="author">
+        <div class="temperature">
             {{ timeConfig.temperature }}
         </div>
         <div class="config" *ngIf="isLoggedIn()">
-            <a (click)="onEdit()">Edit</a>
+            <a (click)="onEdit()" >Edit</a>
             <a (click)="onDelete()">Delete</a>
         </div>
     </footer>

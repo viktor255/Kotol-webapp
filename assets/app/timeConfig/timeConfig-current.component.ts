@@ -10,8 +10,9 @@ import { TimeConfigService } from "./timeConfig.service";
             border-radius: 7px;
             background: rgba(73, 145, 85, 0.74);
             padding: 20px;
-            width: 450px;
-            height: 90px;
+            /*width: 450px;*/
+            width: auto;
+            height: auto;
             display: block;
             margin: 15px 0 0 0;
         }
@@ -51,7 +52,6 @@ export class TimeConfigCurrentComponent implements OnInit, OnDestroy {
             else
                 box.style.background = 'rgba(73, 145, 85, 0.74)';
         }
-
     }
 
     ngOnInit() {

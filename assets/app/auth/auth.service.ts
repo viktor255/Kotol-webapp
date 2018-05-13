@@ -14,7 +14,10 @@ export class AuthService {
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.httpClient.post<User>('http://localhost:3000/user/signup' + token, user)
+        const userId = localStorage.getItem('userId')
+            ? '&userId=' + localStorage.getItem('userId')
+            : '';
+        return this.httpClient.post<User>('http://localhost:3000/user/signup' + token + userId, user)
             .catch((error: HttpErrorResponse) => {
                 this.errorService.handleError(error.error);
                 return Observable.throw(error);
@@ -35,5 +38,9 @@ export class AuthService {
 
     isLoggedIn() {
         return localStorage.getItem('token') != null;
+    }
+
+    isAdmin() {
+        return localStorage.getItem('admin');
     }
 }

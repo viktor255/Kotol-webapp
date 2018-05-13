@@ -45,12 +45,7 @@ export class TimeConfigService{
             return -1;
         let counter = 0;
         for(const timeConfig of this.timeConfigs){
-            // console.log('timeconfig is ');
-            // console.log(timeConfig);
-            // console.log(this.currentTime());
-            // console.log(timeConfig.time);
             if(this.currentTime() < timeConfig.time) {
-                // console.log('counter is ' + counter);
                 break;
             }
             counter++;

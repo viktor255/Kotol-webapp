@@ -37,7 +37,6 @@ export class ErrorComponent implements OnInit {
             .subscribe(
                 (error: Error) => {
                     this.error = error;
-                    console.log('Erorr nadpisy poslkej');
                     console.log(error.message);
                     console.log(error.title);
                     this.display = 'block';

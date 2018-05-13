@@ -23,7 +23,7 @@ export class TimeConfigListComponent implements OnInit{
             .subscribe((timeConfigs: TimeConfig[]) => {
                 this.timeConfigs = timeConfigs;
                 this.timeConfigService.sortTimeConfigs();
-                console.log(this.timeConfigs);
+                // console.log(this.timeConfigs);
             });
         // this.timeConfigs = this.timeConfigService.getTimeConfigs();
 

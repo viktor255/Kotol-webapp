@@ -14,9 +14,13 @@ export class SignupComponent implements OnInit {
     }
 
     onSubmit() {
+        let admin = false;
+        if(this.myForm.value.admin)
+            admin = true;
         const user = new User(
             this.myForm.value.email,
-            this.myForm.value.password
+            this.myForm.value.password,
+            admin
         );
         this.authService.signup(user)
             .subscribe(
@@ -33,6 +37,7 @@ export class SignupComponent implements OnInit {
                 Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")
             ]),
             password: new FormControl(null, Validators.required),
+            admin: new FormControl(null)
         });
     }
 }
