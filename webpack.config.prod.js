@@ -22,15 +22,14 @@ module.exports = webpackMerge.smart(commonConfig, {
             {
                 test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
                 loader: '@ngtools/webpack'
-            },
-            {
-                test: /\.ts$/,
-                use: [
-                    'awesome-typescript-loader',
-                    'angular2-template-loader',
-                    // 'angular-router-loader?aot=true'
-                ]
             }
+            // {
+            //     test: /\.ts$/,
+            //     use: [
+            //         'awesome-typescript-loader',
+            //         'angular2-template-loader'
+            //     ]
+            // }
         ]
     },
 
