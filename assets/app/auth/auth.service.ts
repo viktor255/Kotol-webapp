@@ -18,7 +18,7 @@ export class AuthService {
         const userId = localStorage.getItem('userId')
             ? '&userId=' + localStorage.getItem('userId')
             : '';
-        return this.httpClient.post<User>('http://localhost:3000/user/signup' + token + userId, user)
+        return this.httpClient.post<User>('https://bojler-controller.herokuapp.com/user/signup' + token + userId, user)
             .catch((error: HttpErrorResponse) => {
                 this.errorService.handleError(error.error);
                 return Observable.throw(error);
@@ -28,7 +28,7 @@ export class AuthService {
     signin(user: User) {
         const body = JSON.stringify(user);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.httpClient.post('http://localhost:3000/user/signin', body, {headers: headers})
+        return this.httpClient.post('https://bojler-controller.herokuapp.com/user/signin', body, {headers: headers})
             .map((data: any) => data)
             .catch((error: HttpErrorResponse) => {
                     this.errorService.handleError(error.error);

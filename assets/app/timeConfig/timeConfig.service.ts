@@ -67,7 +67,7 @@ export class TimeConfigService{
                 : '';
             // this.timeConfigs.push(timeConfig);
             // this.sortTimeConfigs();
-            return this.httpClient.post<TimeConfig>('http://localhost:3000/timeConfig' + token, timeConfig)
+            return this.httpClient.post<TimeConfig>('https://bojler-controller.herokuapp.com/timeConfig' + token, timeConfig)
                 .map((data: any) => {
                     const myTimeConfig = new TimeConfig(data.obj.time, data.obj.temperature, data.obj._id);
                     this.timeConfigs.push(myTimeConfig);
@@ -93,7 +93,7 @@ export class TimeConfigService{
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.httpClient.patch<TimeConfig>('http://localhost:3000/timeConfig/' + timeConfig.timeConfigId + token, timeConfig)
+        return this.httpClient.patch<TimeConfig>('https://bojler-controller.herokuapp.com/timeConfig/' + timeConfig.timeConfigId + token, timeConfig)
             .catch((error: HttpErrorResponse) => {
                 this.errorService.handleError(error.error);
                 return Observable.throw(error);
@@ -105,7 +105,7 @@ export class TimeConfigService{
             ? '?token=' + localStorage.getItem('token')
             : '';
         this.timeConfigs.splice(this.timeConfigs.indexOf(timeConfig),1);
-        return this.httpClient.delete<TimeConfig>('http://localhost:3000/timeConfig/' + timeConfig.timeConfigId + token)
+        return this.httpClient.delete<TimeConfig>('https://bojler-controller.herokuapp.com/timeConfig/' + timeConfig.timeConfigId + token)
             .catch((error: HttpErrorResponse) => {
                 this.errorService.handleError(error.error);
                 return Observable.throw(error);
@@ -113,7 +113,7 @@ export class TimeConfigService{
     }
 
     getTimeConfigs() {
-        return this.httpClient.get<TimeConfig[]>('http://localhost:3000/timeConfig')
+        return this.httpClient.get<TimeConfig[]>('https://bojler-controller.herokuapp.com/timeConfig')
             .map( (data: any) => {
                 //console.log(messages);
                 const transformedTimeConfigs: TimeConfig[] = [];
@@ -135,7 +135,7 @@ export class TimeConfigService{
     }
 
     getCurrentTimeConfig(): Observable<TimeConfig> {
-        return this.httpClient.get<TimeConfig>('http://localhost:3000/currentTimeConfig')
+        return this.httpClient.get<TimeConfig>('https://bojler-controller.herokuapp.com/currentTimeConfig')
             .map((data: any) => {
                 return new TimeConfig(data.obj.time, data.obj.temperature);
             })
