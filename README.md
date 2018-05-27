@@ -1,4 +1,4 @@
-#README
+##README
 
 You need to have installed Node.js (tested version 9.11.1) and running local or remote MongoDB database
 
@@ -17,7 +17,7 @@ You need to have installed Node.js (tested version 9.11.1) and running local or 
  - visit [http://localhost:3000/](http://localhost:3000/) to use application
 
 
-###Project structure:
+##Project structure:
 
 * assets folder - Angular front-end
 * bin folder - Express web server setup
@@ -31,3 +31,12 @@ You need to have installed Node.js (tested version 9.11.1) and running local or 
 * package.json - project npm setup and dependencies
 * tsconfig.json - TypeScript compiler config
 * webpack.config files - webpack configurations
+
+
+## License
+
+Copyright 2018 Viktor Lehotský
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
