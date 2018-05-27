@@ -6,6 +6,10 @@ import 'rxjs/Rx';
 import { ErrorService } from "../errors/error.service";
 import { Error } from "../errors/error.model";
 
+// Use your own link
+const urlLink = 'http://localhost:3000/';
+// const urlLink = 'https://bojler-controller.herokuapp.com/';
+
 @Injectable()
 export class TimeConfigService{
     timeConfigs: TimeConfig[] = [];
@@ -14,9 +18,6 @@ export class TimeConfigService{
 
     constructor(private httpClient: HttpClient, private errorService: ErrorService){}
 
-    // checkTime(time:string){
-    //     return
-    // }
 
     sortTimeConfigs(){
         this.timeConfigs.sort((a,b) => {
@@ -58,16 +59,14 @@ export class TimeConfigService{
     }
 
     addTimeConfig(timeConfig: TimeConfig): Observable<TimeConfig> {
-        // if not already in array add new timeConfig else change temperature
+        // if not already in array add new timeConfig else throw error
         const indexNum = this.timeConfigs.findIndex(x => x.time == timeConfig.time);
         if(indexNum == -1){
             // create
             const token = localStorage.getItem('token')
                 ? '?token=' + localStorage.getItem('token')
                 : '';
-            // this.timeConfigs.push(timeConfig);
-            // this.sortTimeConfigs();
-            return this.httpClient.post<TimeConfig>('https://bojler-controller.herokuapp.com/timeConfig' + token, timeConfig)
+            return this.httpClient.post<TimeConfig>(urlLink + 'timeConfig/' + token, timeConfig)
                 .map((data: any) => {
                     const myTimeConfig = new TimeConfig(data.obj.time, data.obj.temperature, data.obj._id);
                     this.timeConfigs.push(myTimeConfig);
@@ -93,7 +92,7 @@ export class TimeConfigService{
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.httpClient.patch<TimeConfig>('https://bojler-controller.herokuapp.com/timeConfig/' + timeConfig.timeConfigId + token, timeConfig)
+        return this.httpClient.patch<TimeConfig>(urlLink + 'timeConfig/' + timeConfig.timeConfigId + token, timeConfig)
             .catch((error: HttpErrorResponse) => {
                 this.errorService.handleError(error.error);
                 return Observable.throw(error);
@@ -105,7 +104,7 @@ export class TimeConfigService{
             ? '?token=' + localStorage.getItem('token')
             : '';
         this.timeConfigs.splice(this.timeConfigs.indexOf(timeConfig),1);
-        return this.httpClient.delete<TimeConfig>('https://bojler-controller.herokuapp.com/timeConfig/' + timeConfig.timeConfigId + token)
+        return this.httpClient.delete<TimeConfig>(urlLink + 'timeConfig/' + timeConfig.timeConfigId + token)
             .catch((error: HttpErrorResponse) => {
                 this.errorService.handleError(error.error);
                 return Observable.throw(error);
@@ -113,7 +112,7 @@ export class TimeConfigService{
     }
 
     getTimeConfigs() {
-        return this.httpClient.get<TimeConfig[]>('https://bojler-controller.herokuapp.com/timeConfig')
+        return this.httpClient.get<TimeConfig[]>(urlLink + 'timeConfig')
             .map( (data: any) => {
                 //console.log(messages);
                 const transformedTimeConfigs: TimeConfig[] = [];
@@ -135,7 +134,7 @@ export class TimeConfigService{
     }
 
     getCurrentTimeConfig(): Observable<TimeConfig> {
-        return this.httpClient.get<TimeConfig>('https://bojler-controller.herokuapp.com/currentTimeConfig')
+        return this.httpClient.get<TimeConfig>(urlLink + 'currentTimeConfig')
             .map((data: any) => {
                 return new TimeConfig(data.obj.time, data.obj.temperature);
             })

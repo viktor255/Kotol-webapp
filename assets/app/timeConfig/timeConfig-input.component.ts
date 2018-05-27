@@ -23,7 +23,6 @@ export class TimeConfigInputComponent implements OnInit {
         this.timeConfig = null;
         this.toggleErrorMessage(false);
         this.myForm.reset();
-        // form.resetForm();
     }
 
     toggleErrorMessage(showError) {

@@ -10,7 +10,6 @@ import { TimeConfigService } from "./timeConfig.service";
             border-radius: 7px;
             background: rgba(73, 145, 85, 0.74);
             padding: 20px;
-            /*width: 450px;*/
             width: auto;
             height: auto;
             display: block;
@@ -64,7 +63,7 @@ export class TimeConfigCurrentComponent implements OnInit, OnDestroy {
         }, 30000);
         this.intervalId = setInterval(() => {
             this.checkCurrentTempLocal()
-        }, 3000);
+        }, 1000);
     }
 
     ngOnDestroy() {

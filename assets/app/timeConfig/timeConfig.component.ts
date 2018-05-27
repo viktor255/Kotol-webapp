@@ -10,15 +10,12 @@ import { TimeConfigService } from "./timeConfig.service";
             display: inline-block;
             font-style: italic;
             font-size: 12px;
-            /*width: 80%;*/
         }
 
         .config {
             display: inline-block;
-            /*text-align: right;*/
             float: right;
             font-size: 12px;
-            /* width: 19%;*/
         }
     `]
 })

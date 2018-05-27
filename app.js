@@ -12,15 +12,18 @@ var currentTimeConfigRoutes = require('./routes/currentTimeConfig');
 var userRoutes = require('./routes/user');
 
 var app = express();
-// mongoose.connect('mongodb://localhost:27017/kotol');
-mongoose.connect('mongodb://heroku:heroku-bojler@boilertimeconfigs-shard-00-00-ssig8.mongodb.net:27017,boilertimeconfigs-shard-00-01-ssig8.mongodb.net:27017,boilertimeconfigs-shard-00-02-ssig8.mongodb.net:27017/kotol?ssl=true&replicaSet=boilerTimeConfigs-shard-0&authSource=admin');
+
+// MongoDB database connection either localhost or remote, provide link to your own database
+// var urlLink = 'mongodb://localhost:27017/kotol';
+var urlLink = 'mongodb://heroku:heroku-bojler@boilertimeconfigs-shard-00-00-ssig8.mongodb.net:27017,boilertimeconfigs-shard-00-01-ssig8.mongodb.net:27017,boilertimeconfigs-shard-00-02-ssig8.mongodb.net:27017/kotol?ssl=true&replicaSet=boilerTimeConfigs-shard-0&authSource=admin';
+
+mongoose.connect(urlLink);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,6 +37,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+// routes configuration
 app.use('/timeConfig', timeConfigsRoutes);
 app.use('/currentTimeConfig', currentTimeConfigRoutes);
 app.use('/user', userRoutes);
