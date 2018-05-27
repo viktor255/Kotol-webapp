@@ -2,7 +2,7 @@
 
 Boiller controller - web apllication to manage temperature of heating boiller.
 
-##Installation
+## Installation
 
 You need to have installed Node.js (tested version 9.11.1) and running local or remote MongoDB database.
 
