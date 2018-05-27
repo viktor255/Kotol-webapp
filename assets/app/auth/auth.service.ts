@@ -6,8 +6,8 @@ import { ErrorService } from "../errors/error.service";
 
 
 // Use your own link
-const urlLink = 'http://localhost:3000/';
-// const urlLink = 'https://bojler-controller.herokuapp.com/';
+// const urlLink = 'http://localhost:3000/';
+const urlLink = 'https://bojler-controller.herokuapp.com/';
 
 @Injectable()
 export class AuthService {
