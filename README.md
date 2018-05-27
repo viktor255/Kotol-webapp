@@ -1,6 +1,7 @@
 ## Synopsis
 
-Boiller controller - web apllication to manage temperature of heating boiller.
+Boiller controller - web apllication to manage temperature of heating boiller. 
+Code hosted on [GitHub repository](https://github.com/viktor255/Kotol-webapp).
 
 ## Installation
 
