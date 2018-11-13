@@ -21,11 +21,18 @@ export class SigninComponent implements OnInit{
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('userId', data.userId);
                     localStorage.setItem('admin', data.admin);
+                    SigninComponent.calculateExpire(data.expiresIn);
                     this.router.navigateByUrl('/');
                 },
                 error => console.error(error)
             );
         this.myForm.reset();
+    }
+
+    static calculateExpire(expiresIn:number){
+        let expiresAt:number;
+        expiresAt = Date.now() + expiresIn * 1000;
+        localStorage.setItem('expiresAt', expiresAt.toString());
     }
 
     ngOnInit() {

@@ -28,13 +28,14 @@ router.post('/signin', function (req, res, next) {
         var token = jwt.sign(
             {user: user},
             'secret',
-            {expiresIn:'2d'}
+            {expiresIn:'1d'}
         );
         res.status(200).json({
             message: 'Successfully logged in',
             token: token,
             userId: user._id,
-            admin: user.admin
+            admin: user.admin,
+            expiresIn: 86400
         });
     });
 });

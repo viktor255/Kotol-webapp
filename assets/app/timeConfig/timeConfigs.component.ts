@@ -18,6 +18,13 @@ import { Component } from "@angular/core";
 
 export class TimeConfigsComponent{
     isLoggedIn() {
-        return localStorage.getItem('token') != null;
+        let loggedIn = localStorage.getItem('token') != null;
+        if(loggedIn) {
+            if(parseInt(localStorage.getItem('expiresAt')) < Date.now()){
+                localStorage.clear();
+                return false;
+            }
+        }
+        return loggedIn;
     }
 }
