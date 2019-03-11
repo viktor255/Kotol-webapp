@@ -16,7 +16,7 @@ You need to have installed Node.js (tested version 9.11.1) and running local or 
 ### How to run:
 
  - to start backend run 'npm start'
- - to start Angular front-end in dev mode run 'npm run build'
+ - to start Angular front-end in dev mode run 'npm run build:dev'
  - to build Angular front-end in prod mode run 'npm run build:prod'
  - visit [http://localhost:3000/](http://localhost:3000/) to use application
 
