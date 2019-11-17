@@ -7,6 +7,9 @@ import { Component } from "@angular/core";
             <app-timeConfig-input></app-timeConfig-input>
         </div>
         <div class="row">
+            <app-timeConfig-boost></app-timeConfig-boost>
+        </div>
+        <div class="row">
             <app-timeConfig-current></app-timeConfig-current>
         </div>
         <hr>

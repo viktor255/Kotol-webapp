@@ -1,16 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { TimeConfig } from "./timeConfig.model";
-import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
-import { TimeConfigService } from "./timeConfig.service";
+import {Component, OnInit} from "@angular/core";
+import {TimeConfig} from "./timeConfig.model";
+import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
+import {TimeConfigService} from "./timeConfig.service";
 
 @Component({
     selector: 'app-timeConfig-input',
     templateUrl: './timeConfig-input.component.html',
-    styles: [`#error-msg {
-        padding-bottom: 10px;
-        color: red;
-        display: none;
-    }`]
+    styles: [`
+        #error-msg {
+            padding-bottom: 10px;
+            color: red;
+            display: none;
+        }
+    `]
 })
 export class TimeConfigInputComponent implements OnInit {
     timeConfig: TimeConfig;
@@ -35,7 +37,7 @@ export class TimeConfigInputComponent implements OnInit {
     }
 
     onSubmit() {
-        if(this.timeConfig) {
+        if (this.timeConfig) {
             // Update
             this.timeConfig.time = this.myForm.value.time;
             this.timeConfig.temperature = this.myForm.value.temperature;
@@ -44,8 +46,7 @@ export class TimeConfigInputComponent implements OnInit {
                     result => console.log(result)
                 );
             this.timeConfig = null;
-        }
-        else {
+        } else {
             // Create
             this.timeConfig = new TimeConfig(this.myForm.value.time, this.myForm.value.temperature);
             console.log(this.timeConfig);

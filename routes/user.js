@@ -34,6 +34,7 @@ router.post('/signin', function (req, res, next) {
             message: 'Successfully logged in',
             token: token,
             userId: user._id,
+            email: user.email,
             admin: user.admin,
             expiresIn: 86400
         });

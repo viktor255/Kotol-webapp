@@ -5,6 +5,8 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
 import { ErrorService } from "../errors/error.service";
 import { Error } from "../errors/error.model";
+import {Boost} from "./boost.model";
+import {BoostConfig} from "./boostConfig.model";
 
 // Use your own link
 // const urlLink = 'http://localhost:3000/';
@@ -13,8 +15,10 @@ const urlLink = 'https://bojler-controller.herokuapp.com/';
 @Injectable()
 export class TimeConfigService{
     timeConfigs: TimeConfig[] = [];
+    currentBoost: Boost = null;
 
     timeConfigIsEdit = new EventEmitter<TimeConfig>();
+    boostConfigIsEdit = new EventEmitter<BoostConfig>();
 
     constructor(private httpClient: HttpClient, private errorService: ErrorService){}
 
@@ -87,6 +91,11 @@ export class TimeConfigService{
     editConfig(timeConfig: TimeConfig){
         this.timeConfigIsEdit.emit(timeConfig);
     }
+    editBoostConfig(boostConfig: BoostConfig){
+        this.boostConfigIsEdit.emit(boostConfig);
+        localStorage.setItem('boostConfigDuration', boostConfig.duration.toString());
+        localStorage.setItem('boostConfigTemperature', boostConfig.temperature.toString());
+    }
 
     updateTimeConfig(timeConfig: TimeConfig): Observable<TimeConfig>{
         const token = localStorage.getItem('token')
@@ -137,6 +146,101 @@ export class TimeConfigService{
         return this.httpClient.get<TimeConfig>(urlLink + 'currentTimeConfig')
             .map((data: any) => {
                 return new TimeConfig(data.obj.time, data.obj.temperature);
+            })
+            .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
+                return Observable.throw(error);
+            });
+    }
+
+    getCurrentBoost(): Observable<Boost> {
+        return this.httpClient.get<Boost>(urlLink + 'boost')
+            .map((data: any) => {
+                if (!data.obj) {
+                    this.currentBoost = null;
+                    return null;
+                }
+                // console.log('getCurrentBoost ', data);
+                this.currentBoost = new Boost(data.obj.time, data.obj.duration, data.obj.temperature, data.obj.author, data.obj._id);
+                return this.currentBoost;
+            })
+            .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
+                return Observable.throw(error);
+            });
+    }
+
+    addBoost(boost : Boost): Observable<Boost> {
+
+        if(!this.currentBoost ||  boost.time - this.currentBoost.time > 100000){
+            // create
+            const token = localStorage.getItem('token')
+                ? '?token=' + localStorage.getItem('token')
+                : '';
+            return this.httpClient.post<Boost>(urlLink + 'boost/' + token, boost)
+                .map((data: any) => {
+                    this.currentBoost = new Boost(data.obj.time, data.obj.duration, data.obj.temperature, data.obj.author, data.obj._id);
+                    // console.log('boost added', this.currentBoost);
+                    return this.currentBoost;
+                })
+                .catch((error: HttpErrorResponse) => {
+                    this.errorService.handleError(error.error);
+                    return Observable.throw(error);
+                });
+        } else {
+            const error = new Error('Boost', 'Boost is already created');
+            return Observable.throw(error);
+        }
+    }
+
+    deleteCurrentBoost(boost: Boost): Observable<Boost> {
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
+        return this.httpClient.delete<Boost>(urlLink + 'boost/' + boost.boostId + token)
+            .map((data: any) => {
+                if (!data.obj) {
+                    this.currentBoost = null;
+                    return null;
+                }
+                this.currentBoost = new Boost(data.obj.time, data.obj.duration, data.obj.temperature, data.obj.author, data.obj._id);
+                // console.log('boost added', this.currentBoost);
+                return this.currentBoost;
+            })
+            .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
+                return Observable.throw(error);
+            });
+    }
+
+    getBoostConfig(): Observable<Boost> {
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
+        return this.httpClient.get<Boost>(urlLink + 'boostConfig/api/' + token)
+            .map((data: any) => {
+                // console.log('boostConfig ', data);
+                const boostConfig = new BoostConfig(data.obj.duration, data.obj.temperature, data.obj._id);
+                this.editBoostConfig(boostConfig);
+                return boostConfig;
+            })
+            .catch((error: HttpErrorResponse) => {
+                this.errorService.handleError(error.error);
+                return Observable.throw(error);
+            });
+    }
+
+    updateBoostConfig(boostConfig: BoostConfig): Observable<BoostConfig>{
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
+        // console.log('updateBoostConfigService', boostConfig);
+        return this.httpClient.patch<BoostConfig>(urlLink + 'boostConfig/api/' + boostConfig.boostConfigId + token, boostConfig)
+            .map((data: any) => {
+                // console.log('boostConfig ', data);
+                const boostConfig = new BoostConfig(data.obj.duration, data.obj.temperature, data.obj._id);
+                this.editBoostConfig(boostConfig);
+                return boostConfig;
             })
             .catch((error: HttpErrorResponse) => {
                 this.errorService.handleError(error.error);

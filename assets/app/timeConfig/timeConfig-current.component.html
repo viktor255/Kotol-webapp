@@ -3,7 +3,7 @@
         <div class="temp">
             Current Temperature:  {{ timeConfigCurrent?.temperature }}<br>
             Desired Temperature:  {{ desiredTemperature }}<br>
-            Last synced: {{ timeConfigCurrent?.time }}
+            Last synced: {{ lastConfigTime | amDateFormat:'HH:mm:ss LL' }}
         </div>
     </div>
 </div>

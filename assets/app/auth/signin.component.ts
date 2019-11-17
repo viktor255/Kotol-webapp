@@ -20,6 +20,7 @@ export class SigninComponent implements OnInit{
                 data => {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('userId', data.userId);
+                    localStorage.setItem('email', data.email);
                     localStorage.setItem('admin', data.admin);
                     SigninComponent.calculateExpire(data.expiresIn);
                     this.router.navigateByUrl('/');

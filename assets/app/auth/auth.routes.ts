@@ -7,6 +7,6 @@ export const AUTH_ROUTES: Routes = [
     // { path: '', redirectTo: 'signin', pathMatch: 'full' },
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },
-    { path: 'logout', component: LogoutComponent }
+    { path: 'logout', component: LogoutComponent },
 ];
 

@@ -8,7 +8,7 @@ import { TimeConfigService } from "./timeConfig.service";
     styles: [`
         #tempBox {
             border-radius: 7px;
-            background: rgba(73, 145, 85, 0.74);
+            background: #78AD81;
             padding: 20px;
             width: auto;
             height: auto;
@@ -47,9 +47,9 @@ export class TimeConfigCurrentComponent implements OnInit, OnDestroy {
             this.desiredTemperature = this.timeConfigService.desiredTemperature();
             let box = document.getElementById("tempBox");
             if (((currentTime - this.lastConfigTime) > 120000) || this.desiredTemperature != this.timeConfigCurrent.temperature)
-                box.style.background = 'red';
+                box.style.background = '#D9534F';
             else
-                box.style.background = 'rgba(73, 145, 85, 0.74)';
+                box.style.background = '#78AD81';
         }
     }
 

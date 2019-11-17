@@ -17,6 +17,9 @@ import { HeaderComponent } from "./header.component";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 import { TimeConfigCurrentComponent } from "./timeConfig/timeConfig-current.component";
+import { TimeConfigBoostComponent } from "./timeConfig/timeConfig-boost.component";
+import {BoostConfigComponent} from "./timeConfig/boostConfig.component";
+import {MomentModule} from "ngx-moment";
 
 @NgModule({
     declarations: [
@@ -27,6 +30,8 @@ import { TimeConfigCurrentComponent } from "./timeConfig/timeConfig-current.comp
         TimeConfigInputComponent,
         TimeConfigsComponent,
         TimeConfigCurrentComponent,
+        TimeConfigBoostComponent,
+        BoostConfigComponent,
         LogoutComponent,
         SignupComponent,
         SigninComponent,
@@ -38,6 +43,7 @@ import { TimeConfigCurrentComponent } from "./timeConfig/timeConfig-current.comp
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        MomentModule,
         routing
     ],
     providers:[

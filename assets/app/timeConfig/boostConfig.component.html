@@ -1,0 +1,29 @@
+<div class="col-md-8 col-md-offset-2">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="duration">Duration (min)</label>
+            <input
+                    type="number"
+                    id="duration"
+                    class="form-control"
+                    [ngModel]="boostConfig?.duration"
+                    name="duration"
+                    formControlName="duration">
+        </div>
+        <div class="form-group">
+            <label for="temperature">Temperature (0-9)</label>
+            <input
+                    type="number"
+                    min="0"
+                    max="9"
+                    id="temperature"
+                    class="form-control"
+                    [ngModel]="boostConfig?.temperature"
+                    name="temperature"
+                    formControlName="temperature">
+        </div>
+        <div id="error-msg">Something wrong</div>
+        <button class="btn btn-danger" type="button" (click)="onClear()">Clear</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid"> Save</button>
+    </form>
+</div>

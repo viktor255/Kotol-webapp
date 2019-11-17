@@ -1,0 +1,17 @@
+<div class="col-md-2 col-md-offset-5" *ngIf="isLoggedIn()">
+    <div class="boostButton" (click)="createNewBoost()">
+        <span class="glyphicon glyphicon-fire fireIcon" aria-hidden="true"></span>
+    </div>
+</div>
+<div class="col-md-8 col-md-offset-2" *ngIf="currentBoost">
+    <div class="boostBox">
+        <div class="deleteButton" *ngIf="isLoggedIn()" (click)="onDelete()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </div>
+        <div class="temp">
+            Boost active till:&nbsp; {{ getTimeDuration() | amDateFormat:'HH:mm:ss LL' }}<br>
+            Temperature:  {{ currentBoost?.temperature }}<br>
+            Created by:  {{ currentBoost?.author }}<br>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,7 @@ import { Component } from "@angular/core";
             <nav class="col-md-8 col-md-offset-2">
                 <ul class="nav nav-pills">
                     <li routerLinkActive="active"><a [routerLink]="['/timeConfigs']">Time configurations</a></li>
+                    <li routerLinkActive="active" *ngIf="isLoggedIn()"><a [routerLink]="['/boostConfig']">Boost configuration</a></li>
                     <li routerLinkActive="active" *ngIf="!isLoggedIn()"><a [routerLink]="['/auth/signin']">Sign in</a></li>
                     <li routerLinkActive="active" *ngIf="isAdmin()"><a [routerLink]="['/auth/signup']">Sign up</a></li>
                     <li routerLinkActive="active" *ngIf="isLoggedIn()"><a [routerLink]="['/auth/logout']">Logout</a></li>
