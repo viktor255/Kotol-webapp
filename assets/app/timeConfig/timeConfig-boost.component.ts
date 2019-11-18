@@ -19,6 +19,7 @@ import {Boost} from "./boost.model";
         }
 
         .boostButton {
+            margin: 15px 0 0 0;
             border-radius: 70px;
             background: #7ba9d0;
             color: white;
